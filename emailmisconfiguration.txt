@@ -1,0 +1,37 @@
+Email spoofing is when someone sends an email with a forged sender address. Because email does not have authentication built in, spam, phishing and attackers use spoofing to take advantage of the trust that the spoofed domain carries, and to get users to give up sensitive information.
+To protect a domain, you need to take action yourself, and configure authentication on your email servers, such as SPF and DMARC. It is however common that SPF is misconfigured, and for companies to be at risk without realizing it.
+
+Examples of potential impact
+ An example of a spoofing could be sending an email appearing to come from a bank and asking the user to enter their credit card credentials. This is also a common way to get passwords.
+The same method can be used to fool the media. One example is when someone sent an email that appeared to be a press release coming from the startup Fingerprint Cards in Sweden, announcing that they were about to be bought by Samsung. Media published the news, manipulating stock buyers and increasing the stock price of Fingerprint Cards increased by 50%.
+
+
+The solutions available today: SPF, DMARC and DKIM
+Today, there are three solutions available to protect yourself from spoofed emails: SPF, DKIM and DMARC. To effectively stop forged email being delivered, the sending domains, their mail servers, and the receiving system all need to be configured correctly for these higher standards of authentication.
+
+SPF
+SPF is a record that is applied to the DNS-record (a global database containing information about domain names and their corresponding address) that specifies what servers are allowed to send email using that domain.
+
+SPF can be set up to have three different actions: hardfail, softfail and neutral.
+
+SPF set up to hardfail means that all emails that are suspected to be forged or spam are rejected and not delivered.
+If the SPF record is set up to softfail, emails are accepted / shown for the user, but marked with a warning as suspicious / spam.
+If the SPF is set up as neutral, all emails are accepted.
+
+Mode	Action
+Softfail	Accept but mark
+Hardfail	Reject
+Neutral	Do nothing
+Softfail is usually recommended as a first step when setting up a SPF record, this way you are able to check if legit emails are marked as spam or not, and then able to accept them as legit for future correspondence. After softfail has been in place for a while, it is common to switch the configuration to hardfail.
+
+THE COMBINATIONS WE COUNTED AS VULNERABLE FOR SPOOFED EMAILS WERE:
+ NO SPF AT ALL
+ SPF WITH SOFTFAIL, ONLY
+
+If the SPF-record ends with “-all” that is enough. 
+If it instead ends with “+all” or “~all” the DMARC-record needs to contain “p=reject” or “p=quarantine“. In any other case it would be considered insufficient.
+p refers to the main domain,
+
+
+Conclusion
+When a domain lacks an SPF policy, an attacker is able to send spoofed emails that look like they’re originating from the vulnerable domain.
